@@ -6,3 +6,11 @@ export interface hospitalInfoType {
   hospIntroduce: string
   hospLevel: string
 }
+
+export interface departInfoType {
+  id: number
+  hospId: number
+  departName: string
+  createTime: string
+  updateTime: string
+}

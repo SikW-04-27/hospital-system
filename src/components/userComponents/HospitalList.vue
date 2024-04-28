@@ -18,7 +18,6 @@ const getHospitalsList = (pageIndex: number = 1, pageSize: number = 10) => {
     hospLevel: selectLevel.value
   }).then((res) => {
     const { records, total } = res
-    console.log(records)
     hospitalInfoList.length = 0
     hospitalInfoList.push(...records)
     total.value = res.total
