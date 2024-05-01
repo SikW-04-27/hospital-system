@@ -20,6 +20,7 @@ onMounted(() => {
 <template>
   <div class="detail">
     <HospitalInfo :hosp-info="hospInfo" />
+    <el-divider style="margin: 5px 0" />
     <HospitalDepart :id="1" />
   </div>
 </template>
@@ -27,7 +28,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .detail {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  // display: flex;
+  // justify-content: space-between;
 }
 </style>

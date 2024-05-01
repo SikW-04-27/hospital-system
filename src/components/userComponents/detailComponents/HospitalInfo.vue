@@ -30,14 +30,12 @@ defineProps<Props>()
           <div class="describeTitle">医院地址</div>
           <div>{{ hospInfo?.hospAddress }}</div>
         </div>
+
+        <div class="hospDescribeBox">
+          <div class="describeTitle">医院简介</div>
+          <div style="color: #91949a">{{ hospInfo?.hospIntroduce }}</div>
+        </div>
       </div>
-    </div>
-
-    <el-divider style="margin: 5px 0" />
-
-    <div class="hospDescribeBox">
-      <div class="describeTitle">医院简介</div>
-      <div style="color: #91949a">{{ hospInfo?.hospIntroduce }}</div>
     </div>
   </div>
 </template>

@@ -1,15 +1,20 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column prop="departName" label="门诊" width="180" />
-    <el-table-column fixed="right" label="操作" width="120">
-      <template #default>
-        <el-button link type="primary" size="small" @click="enterAppointment"> 进入预约 </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+  <div class="title">
+    <div class="titleLogo"></div>
+    <div class="titleText">门诊选择</div>
+  </div>
+  <div class="departContainer">
+    <DepartCard
+      v-for="item in tableData"
+      :key="item.id"
+      :departInfo="item"
+      @click="enterAppointment"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
+import DepartCard from '@/components/common/DepartCard.vue'
 import { getDepart } from '@/request/api'
 import { departInfoType } from '@/utils/type'
 import { onMounted, reactive } from 'vue'
@@ -34,3 +39,24 @@ onMounted(() => {
   })
 })
 </script>
+
+<style scoped lang="scss">
+.title {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  .titleLogo {
+    width: 5px;
+    height: 20px;
+    background-color: rgb(98, 183, 240);
+    margin-right: 10px;
+  }
+  .titleText {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+.departContainer {
+  display: flex;
+}
+</style>
