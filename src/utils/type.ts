@@ -5,6 +5,7 @@ export interface hospitalInfoType {
   hospAddress: string
   hospIntroduce: string
   hospLevel: string
+  createTime: string
 }
 
 export interface departInfoType {

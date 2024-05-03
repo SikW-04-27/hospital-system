@@ -53,3 +53,9 @@ export function getUserOrder(data?: any) {
     return res.data
   })
 }
+
+export function delHosp(ids: string) {
+  return get(`hos/hosp/delHosp/${ids}`).then((res) => {
+    return res.data
+  })
+}
