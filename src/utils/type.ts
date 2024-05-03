@@ -28,3 +28,14 @@ export interface appointmentType {
   updateTime: string
   deleted: number
 }
+
+export interface userAppointmentRecordType {
+  departmentName: string
+  doctorName: string
+  id: number
+  resMoney: number
+  resStatus: number
+  userName: string
+  visitorDate: string
+  visitorName: string
+}

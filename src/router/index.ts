@@ -27,6 +27,11 @@ const router = createRouter({
           path: 'hospitalDetail/:id',
           name: 'hospitalDetail',
           component: () => import('@/components/userComponents/HospitalDetail.vue')
+        },
+        {
+          path: 'userCenter',
+          name: 'userCenter',
+          component: () => import('@/components/userComponents/UserCenter.vue')
         }
       ]
     }

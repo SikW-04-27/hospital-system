@@ -35,8 +35,21 @@ export function getSchedule(data?: any) {
     return res.data
   })
 }
+
 export function addOrder(data?: any) {
   return post(`/hos/order/addOrder`, data).then((res) => {
+    return res.data
+  })
+}
+
+export function cancelOrder(id?: any) {
+  return get(`/hos/order/cancelOrder/${id}`).then((res) => {
+    return res.data
+  })
+}
+
+export function getUserOrder(data?: any) {
+  return post(`/hos/order/showOrderByUserId`, data).then((res) => {
     return res.data
   })
 }
