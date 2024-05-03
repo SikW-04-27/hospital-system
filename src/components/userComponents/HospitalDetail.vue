@@ -1,16 +1,17 @@
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import HospitalInfo from '@/components/userComponents/detailComponents/HospitalInfo.vue'
 import HospitalDepart from '@/components/userComponents/detailComponents/HospitalDepart.vue'
 import { getHospById } from '@/request/api'
 import { hospitalInfoType } from '@/utils/type'
+import router from '@/router'
 
 const hospInfo = ref<hospitalInfoType | null>(null)
+const hospId = router.currentRoute.value.params.id
 
 onMounted(() => {
   // 初始化数据
-  // TODO
-  getHospById(1).then((res: any) => {
+  getHospById(hospId).then((res: any) => {
     console.log(res)
     hospInfo.value = res
   })
