@@ -11,7 +11,13 @@
       @click="enterAppointment(item.id, item.departName)"
     />
   </div>
-  <el-dialog v-model="dialogVisible" :title="departmentName" width="500" fullscreen>
+  <el-dialog
+    v-model="dialogVisible"
+    :title="departmentName"
+    width="500"
+    fullscreen
+    destroy-on-close
+  >
     <UserAppointment :departmentId="departmentId" />
   </el-dialog>
 </template>
