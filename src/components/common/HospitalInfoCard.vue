@@ -35,6 +35,7 @@ defineProps<Props>()
   width: 280px;
   height: fit-content;
   margin-bottom: 20px;
+  cursor: pointer;
   .title {
     display: flex;
     align-items: center;

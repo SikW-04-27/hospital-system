@@ -3,17 +3,34 @@ import type { appointmentType } from '@/utils/type'
 import { SuitcaseLine, Money, User, Clock } from '@element-plus/icons-vue'
 import { formatDate } from '@/utils/utils'
 import { addOrder } from '@/request/api'
+import { ref } from 'vue'
+import showMsg from '@/utils/showMsg'
 interface Props {
   appointment: appointmentType
 }
 const { appointment } = defineProps<Props>()
+const appointmentDialogVisible = ref(false)
+const visitorName = ref('')
+const visitorCard = ref('')
+const userId = sessionStorage.getItem('USERID')
 
-const confirmAppointment = () => {
-  console.log('确定预约')
+const openAppointmentDialog = () => {
+  appointmentDialogVisible.value = true
+}
+
+const comfirmAppointment = () => {
+  if (!userId) {
+    showMsg('warning', '请登陆后再操作')
+    return
+  }
   addOrder({
-    scheduleId: appointment.id
+    scheduleId: appointment.id,
+    visitorName: visitorName.value,
+    visitorCard: visitorCard.value,
+    userId
   }).then((res) => {
-    console.log(res)
+    showMsg('success', '预约成功')
+    appointmentDialogVisible.value = false
   })
 }
 </script>
@@ -49,19 +66,20 @@ const confirmAppointment = () => {
 
     <template #footer>
       <div class="footer">
-        <el-popconfirm
-          title="确定预约?"
-          confirm-button-text="确定"
-          cancel-button-text="取消"
-          @confirm="confirmAppointment"
-        >
-          <template #reference>
-            <el-link type="primary">预约</el-link>
-          </template>
-        </el-popconfirm>
+        <el-link type="primary" @click="openAppointmentDialog">预约</el-link>
       </div>
     </template>
   </el-card>
+  <el-dialog
+    v-model="appointmentDialogVisible"
+    title="预约信息填写"
+    width="500"
+    style="text-align: center"
+  >
+    <el-input v-model="visitorName" placeholder="请填写就诊人姓名" /><br /><br />
+    <el-input v-model="visitorCard" placeholder="请填写就诊人卡号" /><br /><br />
+    <el-button type="primary" @click="comfirmAppointment">确认预约</el-button>
+  </el-dialog>
 </template>
 
 <style lang="scss" scoped>

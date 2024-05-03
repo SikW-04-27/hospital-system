@@ -30,7 +30,7 @@ defineProps<Props>()
   margin-bottom: 20px;
   &:hover {
     transition: 0.5s;
-    background-color: rgb(201, 238, 224);
+    // background-color: rgb(201, 238, 224);
     cursor: pointer;
   }
   .title {

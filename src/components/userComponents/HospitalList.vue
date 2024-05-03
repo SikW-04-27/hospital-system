@@ -3,6 +3,7 @@ import { onMounted, reactive, ref } from 'vue'
 import HospitalInfoCard from '@/components/common/HospitalInfoCard.vue'
 import type { hospitalInfoType } from '@/utils/type'
 import { getHospitals } from '@/request/api'
+import router from '@/router'
 
 const searchText = ref('')
 const selectLevel = ref('')
@@ -35,6 +36,10 @@ const search = () => {
   getHospitalsList()
 }
 
+const goToHospitalDetail = (id: number) => {
+  router.push(`/userHome/hospitalDetail/${id}`)
+}
+
 onMounted(() => {
   getHospitalsList()
 })
@@ -61,6 +66,7 @@ onMounted(() => {
       v-for="hospitalInfo in hospitalInfoList"
       :key="hospitalInfo.id"
       :hospital-info="hospitalInfo"
+      @click="goToHospitalDetail(hospitalInfo.id)"
     />
   </div>
   <div class="pagination">

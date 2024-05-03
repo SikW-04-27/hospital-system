@@ -41,9 +41,15 @@ function loginbtn() {
     code: code.value
   })
     .then((res) => {
-      // sessionStorage.setItem('USER', username.value)
+      if (!res) {
+        showMsg('error', '登录失败')
+        return
+      }
+      console.log(res.userId)
+
+      sessionStorage.setItem('USERID', res.userId)
       showMsg('success', '登录成功')
-      if (res.userFlag === '0') {
+      if (res.userFlag === 0) {
         router.push('/userHome/hospitalList')
       } else {
         // TODO：进入管理端
