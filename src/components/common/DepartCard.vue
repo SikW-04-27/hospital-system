@@ -1,15 +1,47 @@
 <script lang="ts" setup>
-import type { departInfoType } from '@/utils/type'
+import type { departInfoType, departmentType } from '@/utils/type'
 import { Clock } from '@element-plus/icons-vue'
 import { formatDate } from '@/utils/utils'
+import { reactive, ref } from 'vue'
+import { getDepartment } from '@/request/api'
+import UserAppointment from '@/components//userComponents/detailComponents/UserAppointment.vue'
 interface Props {
   departInfo: departInfoType
 }
 defineProps<Props>()
+
+const departmentSelectDialog = ref(false)
+const departmentList: departmentType[] = reactive([])
+const departmentSelect = ref()
+const appointmentDialog = ref(false)
+
+const enterSelectDepartment = (id: number) => {
+  getDepartment({
+    departId: id
+  })
+    .then((res) => {
+      const { records } = res
+      departmentList.length = 0
+      departmentList.push(...records)
+    })
+    .finally(() => {
+      departmentSelectDialog.value = true
+    })
+}
+
+const enterAppointment = () => {
+  appointmentDialog.value = true
+  departmentSelectDialog.value = false
+}
 </script>
 
 <template>
-  <el-card class="card" :body-style="{ padding: '10px' }" shadow="hover">
+  <el-card
+    class="card"
+    :body-style="{ padding: '10px' }"
+    shadow="hover"
+    @click="enterSelectDepartment(departInfo.id)"
+  >
     <div class="title">
       <span class="titleText">{{ departInfo.departName }}</span>
     </div>
@@ -20,6 +52,23 @@ defineProps<Props>()
       </div>
     </div>
   </el-card>
+
+  <el-dialog v-model="departmentSelectDialog" title="选择科室" width="500" destroy-on-close>
+    <el-select v-model="departmentSelect" placeholder="请选择科室">
+      <el-option
+        v-for="item in departmentList"
+        :key="item.id"
+        :label="item.departmentName"
+        :value="item.id"
+      />
+    </el-select>
+    <div style="text-align: center; margin-top: 20px">
+      <el-button type="primary" @click="enterAppointment">确 认</el-button>
+    </div>
+  </el-dialog>
+  <el-dialog v-model="appointmentDialog" title="预约" width="500" fullscreen destroy-on-close>
+    <UserAppointment :departmentId="departmentSelect" />
+  </el-dialog>
 </template>
 
 <style lang="scss" scoped>

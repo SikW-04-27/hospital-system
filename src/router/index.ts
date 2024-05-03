@@ -17,6 +17,11 @@ const router = createRouter({
           path: 'hospitalList',
           name: 'adminHospitalList',
           component: () => import('@/components/adminComponents/HospitalList.vue')
+        },
+        {
+          path: 'departList',
+          name: 'adminDepartList',
+          component: () => import('@/components/adminComponents/DepartList.vue')
         }
       ]
     },

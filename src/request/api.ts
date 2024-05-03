@@ -24,6 +24,12 @@ export function getDepart(data?: any) {
   })
 }
 
+export function getDepartment(data?: any) {
+  return post('/hos/department/showDepartment', data).then((res) => {
+    return res.data
+  })
+}
+
 export function getHospById(id?: any) {
   return get(`/hos/hosp/showHospById/${id}`).then((res) => {
     return res.data

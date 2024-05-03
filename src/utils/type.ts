@@ -40,3 +40,12 @@ export interface userAppointmentRecordType {
   visitorDate: string
   visitorName: string
 }
+
+export interface departmentType {
+  id: number
+  departmentName: string
+  departmentAddress: string
+  departId: number
+  createTime: string
+  deleted: number
+}

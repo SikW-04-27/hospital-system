@@ -9,7 +9,7 @@ const hospInfo = ref<hospitalInfoType | null>(null)
 
 onMounted(() => {
   // 初始化数据
-  // ...
+  // TODO
   getHospById(1).then((res: any) => {
     console.log(res)
     hospInfo.value = res
