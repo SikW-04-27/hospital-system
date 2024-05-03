@@ -14,3 +14,17 @@ export interface departInfoType {
   createTime: string
   updateTime: string
 }
+
+export interface appointmentType {
+  id: number
+  departmentId: number
+  doctorName: string
+  doctorIntroduce: string
+  doctorPro: string
+  scheDate: string
+  scheNumber: number
+  scheMoney: number
+  createTime: string
+  updateTime: string
+  deleted: number
+}

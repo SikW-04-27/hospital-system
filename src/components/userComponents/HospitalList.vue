@@ -6,7 +6,7 @@ import { getHospitals } from '@/request/api'
 
 const searchText = ref('')
 const selectLevel = ref('')
-const total = ref(0)
+const totalNum = ref(0)
 const hospitalInfoList: hospitalInfoType[] = reactive([])
 
 // 获取医院信息列表
@@ -20,7 +20,7 @@ const getHospitalsList = (pageIndex: number = 1, pageSize: number = 10) => {
     const { records, total } = res
     hospitalInfoList.length = 0
     hospitalInfoList.push(...records)
-    total.value = res.total
+    totalNum.value = total
     console.log(res)
   })
 }
@@ -68,7 +68,7 @@ onMounted(() => {
       background
       layout="prev, pager, next"
       @current-change="changePage"
-      :total="total"
+      :total="totalNum"
     />
   </div>
 </template>

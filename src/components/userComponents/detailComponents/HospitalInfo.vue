@@ -33,7 +33,7 @@ defineProps<Props>()
 
         <div class="hospDescribeBox">
           <div class="describeTitle">医院简介</div>
-          <div style="color: #91949a">{{ hospInfo?.hospIntroduce }}</div>
+          <div>{{ hospInfo?.hospIntroduce }}</div>
         </div>
       </div>
     </div>

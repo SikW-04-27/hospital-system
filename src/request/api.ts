@@ -1,5 +1,4 @@
-import { del, get, patch, post, responseType } from './http'
-import * as pageInfo from './api/pageInfo'
+import { get, post } from './http'
 
 export function getHospitals(data: any) {
   return post('hos/hosp/showHosp', data).then((res) => {
@@ -15,6 +14,17 @@ export function getDepart(data?: any) {
 
 export function getHospById(id?: any) {
   return get(`/hos/hosp/showHospById/${id}`).then((res) => {
+    return res.data
+  })
+}
+
+export function getSchedule(data?: any) {
+  return post(`/hos/schedule/showSchedule`, data).then((res) => {
+    return res.data
+  })
+}
+export function addOrder(data?: any) {
+  return post(`/hos/order/addOrder`, data).then((res) => {
     return res.data
   })
 }
