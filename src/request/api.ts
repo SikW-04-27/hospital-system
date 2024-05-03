@@ -1,5 +1,17 @@
 import { get, post } from './http'
 
+export function login(data: any) {
+  return post('/hos/user/login', data).then((res) => {
+    return res.data
+  })
+}
+
+export function getCode() {
+  return get('/hos/user/getCode').then((res) => {
+    return res.data
+  })
+}
+
 export function getHospitals(data: any) {
   return post('hos/hosp/showHosp', data).then((res) => {
     return res.data

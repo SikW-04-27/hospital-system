@@ -1,15 +1,31 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import { ref } from 'vue'
-import { User, Lock, Key } from '@element-plus/icons-vue'
+import { onMounted, ref } from 'vue'
+import { User, Lock, Connection } from '@element-plus/icons-vue'
 import showMsg from '@/utils/showMsg'
 import createLoading from '@/utils/loading'
+import { getCode, login } from '@/request/api'
+import router from '@/router'
 
-type role = 'admin' | 'user'
+type roleType = 'admin' | 'user'
 
 const username = ref()
 const password = ref()
-const currentUserRole = ref<role>('user')
+const code = ref()
+const role = ref<roleType>('user')
+const codeImage = ref('')
+const codeKey = ref('')
+
+const getCodeImage = () => {
+  getCode()
+    .then((res) => {
+      codeImage.value = res.codeImage
+      codeKey.value = res.codeKey
+    })
+    .catch(() => {
+      showMsg('error', '获取验证码失败')
+    })
+}
 
 function loginbtn() {
   if (!username.value || !password.value) {
@@ -17,34 +33,30 @@ function loginbtn() {
     return
   }
   const loading = createLoading()
-  // proxy.$X.API.LOGIN({
-  //   username: username.value,
-  //   password: password.value
-  // })
-  //   .then((result) => {
-  //     const code = result.code
-  //     loading.close()
-  //     console.log(result)
-  //     if (code === 0) {
-  //       // proxy.$X.updata('manageinfo', result.data)
-  //       sessionStorage.setItem('USERINFO', JSON.stringify(result.data))
-  //       sessionStorage.setItem('USER', result.data.token)
-  //       proxy.$X.router.replace({ path: '/SurveyCenter' })
-  //       proxy.$X.showmes('success', '成功')
-  //     } else {
-  //       loading.close()
-  //       proxy.$X.showmes('error', result.message)
-  //     }
-  //   })
-  //   .catch((e) => {
-  //     loading.close(e)
-  //     proxy.$X.showmes('error', '请求失败，请重新登录')
-  //   })
+
+  login({
+    userName: username.value,
+    password: password.value,
+    codeKey: codeKey.value,
+    code: code.value
+  })
+    .then((res) => {
+      // sessionStorage.setItem('USER', username.value)
+      showMsg('success', '登录成功')
+      if (res.userFlag === '0') {
+        router.push('/userHome/hospitalList')
+      } else {
+        // TODO：进入管理端
+      }
+    })
+    .finally(() => {
+      loading.close()
+    })
 }
 
-const changeRole = () => {
-  currentUserRole.value = currentUserRole.value === 'admin' ? 'user' : 'admin'
-}
+onMounted(() => {
+  getCodeImage()
+})
 </script>
 
 <template>
@@ -69,10 +81,31 @@ const changeRole = () => {
           :prefix-icon="Lock"
         />
         <br />
-        <el-button type="primary" @click="loginbtn" color="#1a16fd">登录</el-button><br />
-        <el-link type="info" @click="changeRole">{{
-          currentUserRole === 'admin' ? '用户登录' : '管理员登录'
-        }}</el-link>
+        <el-input
+          v-model="code"
+          style="max-width: 600px"
+          placeholder="请输入验证码"
+          :prefix-icon="Connection"
+        >
+          <template #append>
+            <img
+              v-if="codeImage"
+              :src="codeImage"
+              style="height: 40px; cursor: pointer"
+              @click="getCodeImage"
+            />
+            <span v-else>
+              <a type="primary" style="padding: 0 10px" @click="getCodeImage">点击重新获取验证码</a>
+            </span>
+          </template>
+        </el-input>
+        <br />
+        <el-radio-group v-model="role" style="margin: -20px 0 10px">
+          <el-radio value="admin" size="large">管理端</el-radio>
+          <el-radio value="user" size="large">用户端</el-radio>
+        </el-radio-group>
+        <br />
+        <el-button type="primary" @click="loginbtn">登录</el-button>
       </el-main>
     </el-container>
   </div>
@@ -99,6 +132,9 @@ const changeRole = () => {
     }
     &:focus {
       border: #1a16fd 1px solid;
+    }
+    :deep(.el-input-group__append) {
+      padding: 0;
     }
   }
   .el-button {
