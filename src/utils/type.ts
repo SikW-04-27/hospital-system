@@ -50,3 +50,13 @@ export interface departmentType {
   createTime: string
   deleted: number
 }
+
+export interface userType {
+  id: number
+  userName: string
+  nickName: string
+  phone: number
+  createTime: string
+  card: string
+  deleted: number
+}

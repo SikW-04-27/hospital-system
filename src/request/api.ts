@@ -90,8 +90,20 @@ export function exportSchedule(ids?: string) {
   })
 }
 
-// export function delHosp(ids: string) {
-//   return get(`hos/hosp/delHosp/${ids}`).then((res) => {
-//     return res.data
-//   })
-// }
+export function getAllUser(data?: any) {
+  return post(`/hos/user/showUser`, data).then((res) => {
+    return res.data
+  })
+}
+
+export function delSchedule(ids: string) {
+  return get(`/hos/schedule/delSchedule/${ids}`).then((res) => {
+    return res.data
+  })
+}
+
+export function delDepartment(ids: string) {
+  return get(`/hos/department/delDepartment/${ids}`).then((res) => {
+    return res.data
+  })
+}

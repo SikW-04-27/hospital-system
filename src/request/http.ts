@@ -9,8 +9,10 @@ export interface responseType {
   msg: string
 }
 
+export const BASEURL = 'http://8.134.48.185/'
+
 axios.defaults.timeout = 100000
-axios.defaults.baseURL = 'http://8.134.48.185/'
+axios.defaults.baseURL = BASEURL
 
 /**
  * http request 拦截器

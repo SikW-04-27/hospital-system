@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
 import type { departmentType } from '@/utils/type'
-import { exportDepartment, getDepartment } from '@/request/api'
+import { delDepartment, exportDepartment, getDepartment } from '@/request/api'
 import { formatDate } from '@/utils/utils'
 import { Delete, Download } from '@element-plus/icons-vue'
 import showMsg from '@/utils/showMsg'
@@ -32,7 +32,6 @@ const getDepartmentList = (pageIndex: number = 1, pageSize: number = 10) => {
 
 const changePage = (index: number) => {
   // 切换页码
-  console.log('切换页码', index)
   getDepartmentList(index)
 }
 
@@ -50,10 +49,10 @@ const delDepartments = () => {
     return
   }
   const ids = selectIdList.join(',')
-  // delHosp(ids).then((res) => {
-  //   showMsg('success', '删除成功')
-  //   getDepartmentList()
-  // })
+  delDepartment(ids).then(() => {
+    showMsg('success', '删除成功')
+    getDepartmentList()
+  })
 }
 
 const downloadDepartments = () => {
@@ -62,7 +61,7 @@ const downloadDepartments = () => {
     return
   }
   const ids = selectIdList.join(',')
-  exportDepartment(ids).then((res) => {
+  exportDepartment(ids).then(() => {
     getDepartmentList()
   })
 }
@@ -73,14 +72,15 @@ const editOneDepartment = (row: departmentType) => {
 }
 
 const delOneDepartment = (row: departmentType) => {
-  const delHospId = row.id + ''
-  // delHosp(delHospId).then((res) => {
-  //   showMsg('success', '删除成功')
-  //   getDepartmentList()
-  // })
+  const delDepartmentId = row.id + ''
+  delDepartment(delDepartmentId).then(() => {
+    showMsg('success', '删除成功')
+    getDepartmentList()
+  })
 }
 
 const confirmEdit = () => {
+  // TODO
   // editHosp({
   //   ...form
   // })

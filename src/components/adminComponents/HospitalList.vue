@@ -58,7 +58,7 @@ const delHosps = () => {
     return
   }
   const ids = selectIdList.join(',')
-  delHosp(ids).then((res) => {
+  delHosp(ids).then(() => {
     showMsg('success', '删除成功')
     getHospitalsList()
   })
@@ -70,7 +70,7 @@ const downloadHosps = () => {
     return
   }
   const ids = selectIdList.join(',')
-  exportHosp(ids).then((res) => {
+  exportHosp(ids).then(() => {
     getHospitalsList()
   })
 }
@@ -82,7 +82,7 @@ const editOneHosp = (row: hospitalInfoType) => {
 
 const delOneHosp = (row: hospitalInfoType) => {
   const delHospId = row.id + ''
-  delHosp(delHospId).then((res) => {
+  delHosp(delHospId).then(() => {
     showMsg('success', '删除成功')
     getHospitalsList()
   })

@@ -52,7 +52,7 @@ const getUserOrderList = () => {
     tableData.length = 0
     tableData.push(...res.records)
     tableData.forEach((item) => {
-      item.visitorDate = formatDate(item.visitorDate, 'YYYY-MM-DD HH:mm:ss')
+      item.visitorDate = formatDate(item.visitorDate, 'YYYY-MM-DD HH:mm')
     })
   })
 }

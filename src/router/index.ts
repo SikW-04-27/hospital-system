@@ -27,6 +27,11 @@ const router = createRouter({
           path: 'scheduleList',
           name: 'adminScheduleList',
           component: () => import('@/components/adminComponents/ScheduleList.vue')
+        },
+        {
+          path: 'userList',
+          name: 'adminUserList',
+          component: () => import('@/components/adminComponents/UserList.vue')
         }
       ]
     },

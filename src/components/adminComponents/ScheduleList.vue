@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
 import type { userAppointmentRecordType } from '@/utils/type'
-import { exportSchedule, getSchedule } from '@/request/api'
+import { delSchedule, exportSchedule, getSchedule } from '@/request/api'
 import { formatDate } from '@/utils/utils'
 import { Delete, Download } from '@element-plus/icons-vue'
 import showMsg from '@/utils/showMsg'
@@ -48,10 +48,10 @@ const delSchedules = () => {
     return
   }
   const ids = selectIdList.join(',')
-  // delHosp(ids).then((res) => {
-  //   showMsg('success', '删除成功')
-  //   getScheduleList()
-  // })
+  delSchedule(ids).then(() => {
+    showMsg('success', '删除成功')
+    getScheduleList()
+  })
 }
 
 const downloadSchedules = () => {
@@ -60,17 +60,17 @@ const downloadSchedules = () => {
     return
   }
   const ids = selectIdList.join(',')
-  exportSchedule(ids).then((res) => {
+  exportSchedule(ids).then(() => {
     getScheduleList()
   })
 }
 
 const delOneSchedule = (row: userAppointmentRecordType) => {
-  const delHospId = row.id + ''
-  // delHosp(delHospId).then((res) => {
-  //   showMsg('success', '删除成功')
-  //   getScheduleList()
-  // })
+  const delScheduleId = row.id + ''
+  delSchedule(delScheduleId).then(() => {
+    showMsg('success', '删除成功')
+    getScheduleList()
+  })
 }
 
 onMounted(() => {
@@ -96,7 +96,6 @@ onMounted(() => {
     <el-table-column prop="visitorDate" label="预约日期" />
     <el-table-column prop="doctorName" label="医生" />
     <el-table-column prop="doctorPro" label="医生等级" />
-    <el-table-column prop="visitorName" label="患者" />
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
         <el-button link type="danger" size="small" @click="delOneSchedule(scope.row)">

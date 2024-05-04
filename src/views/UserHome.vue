@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import UserNav from '@/components/common/Nav.vue'
+import UserNav from '@/components/common/UserNav.vue'
 import { RouterView } from 'vue-router'
 </script>
 <template>
