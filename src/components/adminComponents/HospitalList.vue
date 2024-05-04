@@ -1,18 +1,17 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import HospitalInfoCard from '@/components/common/HospitalInfoCard.vue'
 import type { hospitalInfoType } from '@/utils/type'
-import { delHosp, editHosp, getHospitals } from '@/request/api'
-import router from '@/router'
+import { delHosp, editHosp, exportHosp, getHospitals } from '@/request/api'
 import { formatDate } from '@/utils/utils'
-import { Delete, UploadFilled } from '@element-plus/icons-vue'
+import { Delete, Download } from '@element-plus/icons-vue'
 import showMsg from '@/utils/showMsg'
+import FileImport from './fileModule/FileImport.vue'
 
 const searchText = ref('')
 const selectLevel = ref('')
 const totalNum = ref(0)
 const hospitalInfoList: hospitalInfoType[] = reactive([])
-const delHospIdList: number[] = reactive([])
+const selectIdList: number[] = reactive([])
 const dialogVisible = ref(false)
 const form: Partial<hospitalInfoType> = reactive({})
 
@@ -46,21 +45,32 @@ const search = () => {
 }
 
 const handleSelectionChange = (val: hospitalInfoType[]) => {
-  const tempDelHospIdList = val.map((item) => {
+  const tempselectIdList = val.map((item) => {
     return item.id
   })
-  delHospIdList.length = 0
-  delHospIdList.push(...tempDelHospIdList)
+  selectIdList.length = 0
+  selectIdList.push(...tempselectIdList)
 }
 
 const delHosps = () => {
-  if (delHospIdList.length === 0) {
+  if (selectIdList.length === 0) {
     showMsg('warning', '请选择要删除的医院')
     return
   }
-  const ids = delHospIdList.join(',')
+  const ids = selectIdList.join(',')
   delHosp(ids).then((res) => {
     showMsg('success', '删除成功')
+    getHospitalsList()
+  })
+}
+
+const downloadHosps = () => {
+  if (selectIdList.length === 0) {
+    showMsg('warning', '请选择要下载的医院')
+    return
+  }
+  const ids = selectIdList.join(',')
+  exportHosp(ids).then((res) => {
     getHospitalsList()
   })
 }
@@ -117,7 +127,8 @@ onMounted(() => {
   </div>
   <div class="operatorBtns">
     <el-button type="danger" :icon="Delete" circle @click="delHosps" />
-    <el-button type="success" :icon="UploadFilled" circle />
+    <FileImport file-module="hosp" />
+    <el-button type="primary" :icon="Download" circle @click="downloadHosps" />
   </div>
   <el-table
     table-layout="auto"

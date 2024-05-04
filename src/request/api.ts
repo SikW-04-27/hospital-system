@@ -72,6 +72,24 @@ export function editHosp(data?: any) {
   })
 }
 
+export function exportHosp(ids?: string) {
+  return get(`/hos/dict/hos/exportHosp/${ids}`).then((res) => {
+    return res.data
+  })
+}
+
+export function exportDepartment(ids?: string) {
+  return get(`/hos/dict/hos/exportDepartment/${ids}`).then((res) => {
+    return res.data
+  })
+}
+
+export function exportSchedule(ids?: string) {
+  return get(`/hos/dict/hos/exportSchedule/${ids}`).then((res) => {
+    return res.data
+  })
+}
+
 // export function delHosp(ids: string) {
 //   return get(`hos/hosp/delHosp/${ids}`).then((res) => {
 //     return res.data

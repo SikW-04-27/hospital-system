@@ -1,14 +1,15 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import type { departmentType, hospitalInfoType } from '@/utils/type'
-import { delHosp, getDepartment } from '@/request/api'
+import type { departmentType } from '@/utils/type'
+import { exportDepartment, getDepartment } from '@/request/api'
 import { formatDate } from '@/utils/utils'
-import { Delete, UploadFilled } from '@element-plus/icons-vue'
+import { Delete, Download } from '@element-plus/icons-vue'
 import showMsg from '@/utils/showMsg'
+import FileImport from './fileModule/FileImport.vue'
 
 const totalNum = ref(0)
 const departmentList: departmentType[] = reactive([])
-const delDepartmentIdList: number[] = reactive([])
+const selectIdList: number[] = reactive([])
 const dialogVisible = ref(false)
 const form: Partial<departmentType> = reactive({})
 
@@ -35,32 +36,43 @@ const changePage = (index: number) => {
   getDepartmentList(index)
 }
 
-const handleSelectionChange = (val: hospitalInfoType[]) => {
-  const tempDelDepartmentIdList = val.map((item) => {
+const handleSelectionChange = (val: departmentType[]) => {
+  const tempselectIdList = val.map((item) => {
     return item.id
   })
-  delDepartmentIdList.length = 0
-  delDepartmentIdList.push(...tempDelDepartmentIdList)
+  selectIdList.length = 0
+  selectIdList.push(...tempselectIdList)
 }
 
-const delHosps = () => {
-  if (delDepartmentIdList.length === 0) {
+const delDepartments = () => {
+  if (selectIdList.length === 0) {
     showMsg('warning', '请选择要删除的医院')
     return
   }
-  const ids = delDepartmentIdList.join(',')
+  const ids = selectIdList.join(',')
   // delHosp(ids).then((res) => {
   //   showMsg('success', '删除成功')
   //   getDepartmentList()
   // })
 }
 
-const editOneDepartment = (row: hospitalInfoType) => {
+const downloadDepartments = () => {
+  if (selectIdList.length === 0) {
+    showMsg('warning', '请选择要下载的医院')
+    return
+  }
+  const ids = selectIdList.join(',')
+  exportDepartment(ids).then((res) => {
+    getDepartmentList()
+  })
+}
+
+const editOneDepartment = (row: departmentType) => {
   dialogVisible.value = true
   Object.assign(form, row)
 }
 
-const delOneDepartment = (row: hospitalInfoType) => {
+const delOneDepartment = (row: departmentType) => {
   const delHospId = row.id + ''
   // delHosp(delHospId).then((res) => {
   //   showMsg('success', '删除成功')
@@ -91,8 +103,9 @@ onMounted(() => {
 
 <template>
   <div class="operatorBtns">
-    <el-button type="danger" :icon="Delete" circle @click="delHosps" />
-    <el-button type="success" :icon="UploadFilled" circle />
+    <el-button type="danger" :icon="Delete" circle @click="delDepartments" />
+    <FileImport file-module="department" />
+    <el-button type="primary" :icon="Download" circle @click="downloadDepartments" />
   </div>
   <el-table
     table-layout="auto"
