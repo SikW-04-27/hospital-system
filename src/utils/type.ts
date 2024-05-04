@@ -46,6 +46,7 @@ export interface departmentType {
   departmentName: string
   departmentAddress: string
   departId: number
+  departName: string
   createTime: string
   deleted: number
 }

@@ -65,3 +65,15 @@ export function delHosp(ids: string) {
     return res.data
   })
 }
+
+export function editHosp(data?: any) {
+  return post(`hos/hosp/editHosp`, data).then((res) => {
+    return res.data
+  })
+}
+
+// export function delHosp(ids: string) {
+//   return get(`hos/hosp/delHosp/${ids}`).then((res) => {
+//     return res.data
+//   })
+// }

@@ -19,9 +19,9 @@ const router = createRouter({
           component: () => import('@/components/adminComponents/HospitalList.vue')
         },
         {
-          path: 'departList',
-          name: 'adminDepartList',
-          component: () => import('@/components/adminComponents/DepartList.vue')
+          path: 'departmentList',
+          name: 'adminDepartmentList',
+          component: () => import('@/components/adminComponents/DepartmentList.vue')
         }
       ]
     },
