@@ -111,7 +111,7 @@ onMounted(() => {
 
 <template>
   <div class="search-box">
-    <el-input v-model="searchText" placeholder="Please input">
+    <el-input v-model="searchText" placeholder="请输入关键字">
       <template #prepend>
         <el-select v-model="selectLevel" placeholder="医院等级" style="width: 120px">
           <el-option label="全部" value="" />

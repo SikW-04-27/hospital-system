@@ -15,7 +15,14 @@ const handleSelect = (key: string, keyPath: string[]) => {
 </script>
 
 <template>
-  <el-menu default-active="hospitalList" style="height: 100vh" @select="handleSelect">
+  <el-menu
+    active-text-color="#ffd04b"
+    background-color="#545c64"
+    default-active="hospitalList"
+    text-color="#fff"
+    style="height: 100vh"
+    @select="handleSelect"
+  >
     <el-menu-item index="hospitalList">
       <el-icon><OfficeBuilding /></el-icon>
       <span>医院管理</span>
@@ -36,9 +43,9 @@ const handleSelect = (key: string, keyPath: string[]) => {
       <el-icon><Wallet /></el-icon>
       <span>订单管理</span>
     </el-menu-item>
-    <el-menu-item index="6">
+    <!-- <el-menu-item index="6">
       <el-icon><Histogram /></el-icon>
       <span>统计管理</span>
-    </el-menu-item>
+    </el-menu-item> -->
   </el-menu>
 </template>
