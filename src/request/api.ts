@@ -107,3 +107,9 @@ export function delDepartment(ids: string) {
     return res.data
   })
 }
+
+export function getAllOrder(data?: any) {
+  return post(`/hos/order/showOrderByUserId`, data).then((res) => {
+    return res.data
+  })
+}

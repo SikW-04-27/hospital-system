@@ -1,22 +1,25 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import type { userType } from '@/utils/type'
-import { getAllUser } from '@/request/api'
+import type { userAppointmentRecordType } from '@/utils/type'
+import { getAllOrder } from '@/request/api'
+import { formatDate } from '@/utils/utils'
 
 const totalNum = ref(0)
-const userList: userType[] = reactive([])
+const userList: userAppointmentRecordType[] = reactive([])
 
 // 获取医院信息列表
 const getScheduleList = (pageIndex: number = 1, pageSize: number = 10) => {
-  getAllUser({
+  getAllOrder({
     current: pageIndex,
     size: pageSize
   }).then((res) => {
     const { records, total } = res
     userList.length = 0
     userList.push(...records)
+    userList.forEach((item) => {
+      item.visitorDate = formatDate(item.visitorDate)
+    })
     totalNum.value = total
-    console.log(res)
   })
 }
 
@@ -34,10 +37,11 @@ onMounted(() => {
 <template>
   <el-table table-layout="auto" :data="userList" style="width: 100%">
     <el-table-column fixed prop="id" label="编号" />
-    <el-table-column prop="userName" label="用户名" />
-    <el-table-column prop="nickName" label="昵称" />
-    <el-table-column prop="phone" label="联系电话" />
-    <el-table-column prop="card" label="卡号" />
+    <el-table-column prop="departmentName" label="科室" />
+    <el-table-column prop="visitorName" label="患者" />
+    <el-table-column prop="visitorDate" label="预约日期" />
+    <el-table-column prop="doctorName" label="医生" />
+    <el-table-column prop="resMoney" label="预约金额" />
   </el-table>
   <div class="pagination">
     <el-pagination

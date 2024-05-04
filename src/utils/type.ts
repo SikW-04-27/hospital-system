@@ -60,3 +60,12 @@ export interface userType {
   card: string
   deleted: number
 }
+
+export interface ScheduleType {
+  id: number
+  departmentName: string
+  doctorIntroduce: string
+  doctorName: string
+  doctorPro: string
+  scheDate: string
+}

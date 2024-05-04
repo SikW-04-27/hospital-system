@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import type { userAppointmentRecordType } from '@/utils/type'
+import type { ScheduleType } from '@/utils/type'
 import { delSchedule, exportSchedule, getSchedule } from '@/request/api'
 import { formatDate } from '@/utils/utils'
 import { Delete, Download } from '@element-plus/icons-vue'
@@ -8,7 +8,7 @@ import showMsg from '@/utils/showMsg'
 import FileImport from './fileModule/FileImport.vue'
 
 const totalNum = ref(0)
-const scheduleList: userAppointmentRecordType[] = reactive([])
+const scheduleList: ScheduleType[] = reactive([])
 const selectIdList: number[] = reactive([])
 
 // 获取医院信息列表
@@ -21,10 +21,9 @@ const getScheduleList = (pageIndex: number = 1, pageSize: number = 10) => {
     scheduleList.length = 0
     scheduleList.push(...records)
     scheduleList.forEach((item) => {
-      item.visitorDate = formatDate(item.visitorDate)
+      item.scheDate = formatDate(item.scheDate, 'YYYY-MM-DD HH:mm')
     })
     totalNum.value = total
-    console.log(res)
   })
 }
 
@@ -34,7 +33,7 @@ const changePage = (index: number) => {
   getScheduleList(index)
 }
 
-const handleSelectionChange = (val: userAppointmentRecordType[]) => {
+const handleSelectionChange = (val: ScheduleType[]) => {
   const tempselectIdList = val.map((item) => {
     return item.id
   })
@@ -65,7 +64,7 @@ const downloadSchedules = () => {
   })
 }
 
-const delOneSchedule = (row: userAppointmentRecordType) => {
+const delOneSchedule = (row: ScheduleType) => {
   const delScheduleId = row.id + ''
   delSchedule(delScheduleId).then(() => {
     showMsg('success', '删除成功')
@@ -93,9 +92,8 @@ onMounted(() => {
     <el-table-column type="selection" width="55" />
     <el-table-column fixed prop="id" label="编号" />
     <el-table-column prop="departmentName" label="科室" />
-    <el-table-column prop="visitorDate" label="预约日期" />
+    <el-table-column prop="scheDate" label="值班时间" />
     <el-table-column prop="doctorName" label="医生" />
-    <el-table-column prop="doctorPro" label="医生等级" />
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
         <el-button link type="danger" size="small" @click="delOneSchedule(scope.row)">

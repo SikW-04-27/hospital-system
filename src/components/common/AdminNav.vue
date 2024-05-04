@@ -32,7 +32,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
       <el-icon><User /></el-icon>
       <span>用户管理</span>
     </el-menu-item>
-    <el-menu-item index="5">
+    <el-menu-item index="appointmentList">
       <el-icon><Wallet /></el-icon>
       <span>订单管理</span>
     </el-menu-item>
