@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import Nav from '@/components/common/Nav.vue'
+import UserNav from '@/components/common/Nav.vue'
 import { RouterView } from 'vue-router'
 </script>
 <template>
   <div class="common-layout">
     <el-container>
       <el-header>
-        <Nav></Nav>
+        <UserNav />
       </el-header>
       <el-main>
         <RouterView />
