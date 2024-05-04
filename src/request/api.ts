@@ -102,6 +102,12 @@ export function delSchedule(ids: string) {
   })
 }
 
+export function editDepartment(data?: any) {
+  return post(`/hos/department/editDepartment`, data).then((res) => {
+    return res.data
+  })
+}
+
 export function delDepartment(ids: string) {
   return get(`/hos/department/delDepartment/${ids}`).then((res) => {
     return res.data

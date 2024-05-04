@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { RouterView } from 'vue-router'
 import AdminNav from '@/components/common/AdminNav.vue'
 </script>

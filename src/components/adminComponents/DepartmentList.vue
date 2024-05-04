@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
 import type { departmentType } from '@/utils/type'
-import { delDepartment, exportDepartment, getDepartment } from '@/request/api'
+import { delDepartment, editDepartment, exportDepartment, getDepartment } from '@/request/api'
 import { formatDate } from '@/utils/utils'
 import { Delete, Download } from '@element-plus/icons-vue'
 import showMsg from '@/utils/showMsg'
@@ -80,20 +80,19 @@ const delOneDepartment = (row: departmentType) => {
 }
 
 const confirmEdit = () => {
-  // TODO
-  // editHosp({
-  //   ...form
-  // })
-  //   .then(() => {
-  //     showMsg('success', '修改成功')
-  //     getHospitalsList()
-  //   })
-  //   .catch(() => {
-  //     showMsg('error', '删除成功')
-  //   })
-  //   .finally(() => {
-  //     dialogVisible.value = false
-  //   })
+  editDepartment({
+    ...form
+  })
+    .then(() => {
+      showMsg('success', '修改成功')
+      getDepartmentList()
+    })
+    .catch(() => {
+      showMsg('error', '删除成功')
+    })
+    .finally(() => {
+      dialogVisible.value = false
+    })
 }
 
 onMounted(() => {
