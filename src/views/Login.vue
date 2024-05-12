@@ -53,7 +53,7 @@ function loginbtn() {
         router.push('/userHome/hospitalList')
       } else {
         // TODO：进入管理端
-        router.push('/adminHome')
+        router.push('/adminHome/hospitalList')
       }
     })
     .finally(() => {

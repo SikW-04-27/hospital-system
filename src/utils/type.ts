@@ -69,3 +69,10 @@ export interface ScheduleType {
   doctorPro: string
   scheDate: string
 }
+export interface remindType {
+  message: string
+  id: number
+  orderId: number
+  userId: number
+  createTime: string
+}

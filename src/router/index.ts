@@ -4,6 +4,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      redirect: '/login'
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../views/Login.vue')
@@ -37,6 +41,11 @@ const router = createRouter({
           path: 'appointmentList',
           name: 'adminAppointmentList',
           component: () => import('@/components/adminComponents/AppointmentList.vue')
+        },
+        {
+          path: 'statistics',
+          name: 'adminStatistics',
+          component: () => import('@/components/adminComponents/Statistics.vue')
         }
       ]
     },
@@ -59,6 +68,11 @@ const router = createRouter({
           path: 'userCenter',
           name: 'userCenter',
           component: () => import('@/components/userComponents/UserCenter.vue')
+        },
+        {
+          path: 'medicalRemind',
+          name: 'medicalRemind',
+          component: () => import('@/components/userComponents/MedicalRemind.vue')
         }
       ]
     }

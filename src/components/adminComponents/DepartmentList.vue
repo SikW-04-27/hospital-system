@@ -6,6 +6,7 @@ import { formatDate } from '@/utils/utils'
 import { Delete, Download } from '@element-plus/icons-vue'
 import showMsg from '@/utils/showMsg'
 import FileImport from './fileModule/FileImport.vue'
+import { BASEURL } from '@/request/http'
 
 const totalNum = ref(0)
 const departmentList: departmentType[] = reactive([])
@@ -61,9 +62,7 @@ const downloadDepartments = () => {
     return
   }
   const ids = selectIdList.join(',')
-  exportDepartment(ids).then(() => {
-    getDepartmentList()
-  })
+  window.open(`${BASEURL}hos/dict/hos/exportDepartment/${ids}`)
 }
 
 const editOneDepartment = (row: departmentType) => {

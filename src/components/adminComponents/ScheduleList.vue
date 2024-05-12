@@ -6,6 +6,7 @@ import { formatDate } from '@/utils/utils'
 import { Delete, Download } from '@element-plus/icons-vue'
 import showMsg from '@/utils/showMsg'
 import FileImport from './fileModule/FileImport.vue'
+import { BASEURL } from '@/request/http'
 
 const totalNum = ref(0)
 const scheduleList: ScheduleType[] = reactive([])
@@ -59,9 +60,7 @@ const downloadSchedules = () => {
     return
   }
   const ids = selectIdList.join(',')
-  exportSchedule(ids).then(() => {
-    getScheduleList()
-  })
+  window.open(`${BASEURL}hos/dict/hos/exportSchedule/${ids}`)
 }
 
 const delOneSchedule = (row: ScheduleType) => {

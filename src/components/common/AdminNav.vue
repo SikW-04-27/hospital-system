@@ -5,7 +5,7 @@ import {
   Calendar,
   Refrigerator,
   User,
-  Histogram,
+  PieChart,
   Wallet
 } from '@element-plus/icons-vue'
 
@@ -42,6 +42,10 @@ const handleSelect = (key: string, keyPath: string[]) => {
     <el-menu-item index="appointmentList">
       <el-icon><Wallet /></el-icon>
       <span>订单管理</span>
+    </el-menu-item>
+    <el-menu-item index="statistics">
+      <el-icon><PieChart /></el-icon>
+      <span>统计管理</span>
     </el-menu-item>
     <!-- <el-menu-item index="6">
       <el-icon><Histogram /></el-icon>

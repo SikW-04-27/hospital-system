@@ -28,6 +28,14 @@
       </template>
     </el-table-column>
   </el-table>
+  <div class="pagination">
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      @current-change="changePage"
+      :total="totalNum"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -35,31 +43,39 @@ import { cancelOrder, getUserOrder } from '@/request/api'
 import showMsg from '@/utils/showMsg'
 import { userAppointmentRecordType } from '@/utils/type'
 import { formatDate } from '@/utils/utils'
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 const userId = sessionStorage.getItem('USERID')
 
+const totalNum = ref(0)
 const tableData: userAppointmentRecordType[] = reactive([])
 
-const getUserOrderList = () => {
+const getUserOrderList = (pageIndex: number = 1, pageSize: number = 10) => {
   if (!userId) {
     showMsg('error', '请先登录')
     return
   }
   getUserOrder({
+    current: pageIndex,
+    size: pageSize,
     userId
   }).then((res) => {
+    const { records, total } = res
     tableData.length = 0
-    tableData.push(...res.records)
+    tableData.push(...records)
     tableData.forEach((item) => {
       item.visitorDate = formatDate(item.visitorDate, 'YYYY-MM-DD HH:mm')
     })
+    totalNum.value = total
   })
 }
 
-const cancelAppointment = (row: userAppointmentRecordType) => {
-  console.log(row)
+const changePage = (index: number) => {
+  // 切换页码
+  getUserOrderList(index)
+}
 
+const cancelAppointment = (row: userAppointmentRecordType) => {
   cancelOrder(row.id).then((res) => {
     console.log(res)
     getUserOrderList()
@@ -70,3 +86,11 @@ onMounted(() => {
   getUserOrderList()
 })
 </script>
+
+<style scoped lang="scss">
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+</style>

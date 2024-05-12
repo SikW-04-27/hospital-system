@@ -9,12 +9,20 @@
     <!-- <el-menu-item index="0"> 医疗系统 </el-menu-item> -->
     <span class="logo" @click="toHomePage">医疗系统</span>
     <div class="flex-grow" />
-    <el-avatar
-      v-if="isLogin"
-      src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-      @click="toUserCenter"
-      style="cursor: pointer"
-    ></el-avatar>
+
+    <el-dropdown v-if="isLogin">
+      <el-avatar
+        src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        style="cursor: pointer"
+      ></el-avatar>
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item @click="toUserCenter">用户中心</el-dropdown-item>
+          <el-dropdown-item @click="toMedicalRemind">预约提醒</el-dropdown-item>
+          <el-dropdown-item @click="toLogin">退出登录</el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
     <el-link v-else type="primary" @click="toLogin">登录</el-link>
   </el-menu>
 </template>
@@ -34,12 +42,16 @@ const toHomePage = () => {
   router.push('/userHome/hospitalList')
 }
 
-const toLogin = () => {
-  router.push('/login')
-}
-
 const toUserCenter = () => {
   router.push('/userHome/userCenter')
+}
+const toMedicalRemind = () => {
+  router.push('/userHome/medicalRemind')
+}
+
+const toLogin = () => {
+  sessionStorage.clear()
+  router.push('/login')
 }
 </script>
 

@@ -6,6 +6,7 @@ import { formatDate } from '@/utils/utils'
 import { Delete, Download } from '@element-plus/icons-vue'
 import showMsg from '@/utils/showMsg'
 import FileImport from './fileModule/FileImport.vue'
+import { BASEURL } from '@/request/http'
 
 const searchText = ref('')
 const selectLevel = ref('')
@@ -70,9 +71,7 @@ const downloadHosps = () => {
     return
   }
   const ids = selectIdList.join(',')
-  exportHosp(ids).then(() => {
-    getHospitalsList()
-  })
+  window.open(`${BASEURL}hos/dict/hos/exportHosp/${ids}`)
 }
 
 const editOneHosp = (row: hospitalInfoType) => {

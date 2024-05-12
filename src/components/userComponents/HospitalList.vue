@@ -79,7 +79,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style>
+<style scoped lang="scss">
 .search-box {
   display: flex;
   justify-content: space-between;

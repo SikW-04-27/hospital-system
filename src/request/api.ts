@@ -119,3 +119,14 @@ export function getAllOrder(data?: any) {
     return res.data
   })
 }
+
+export function countOrder(data?: any) {
+  return post(`/hos/order/countOrder`, data).then((res) => {
+    return res.data
+  })
+}
+export function showMessage(data?: any) {
+  return post(`/hos/order/showMessage`, data).then((res) => {
+    return res.data
+  })
+}
